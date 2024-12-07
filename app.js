@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             const data = await response.json();
+            console.log(data)
                 currentCity=data[0].name;
                 checkWeather(currentCity);
 
@@ -55,6 +56,8 @@ async function checkWeather(city){
         var data = await response.json();
 
         console.log(data);
+
+        // console.log("The current time is"+isDay)
     
         document.querySelector(".city").innerHTML = data.name;
         document.querySelector(".temp").innerHTML =Math.round(data.main.temp) + " °C";
@@ -62,26 +65,62 @@ async function checkWeather(city){
         document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
     
     
+        const currentTime = data.dt; // Current time (UNIX timestamp)
+        const sunrise = data.sys.sunrise; // Sunrise time (UNIX timestamp)
+        const sunset = data.sys.sunset; // Sunset time (UNIX timestamp)
+
+        // Determine if it's day or night
+        const isDay = currentTime >= sunrise && currentTime <= sunset;
+
     
-        if(data.weather[0].main == "Clouds"){
-            // weatherIcon.src = data.weather[0].icon;
-            weatherIcon.src = "images/clouds.png";
-        }
-        else if(data.weather[0].main == "Clear"){
-            weatherIcon.src = "images/clear.png";
-        }
-        else if(data.weather[0].main == "Rain"){
-            weatherIcon.src = "images/rain.png";
-        }
-        else if(data.weather[0].main == "Drizzle"){
-            weatherIcon.src = "images/drizzle.png";
-        }
-        else if(data.weather[0].main == "Mist"){
-            weatherIcon.src = "images/mist.png";
-        }
-        else if(data.weather[0].main == "Snow"){
-            weatherIcon.src = "images/snow.png";
-        }
+if(isDay==false){
+    if(data.weather[0].main == "Clouds"){
+        // weatherIcon.src = data.weather[0].icon;
+        weatherIcon.src = "images/NightClouds.png";
+    }
+    else if(data.weather[0].main == "Clear"){
+        weatherIcon.src = "images/NightMoon.png";
+    }
+    else if(data.weather[0].main == "Rain"){
+        weatherIcon.src = "images/NightRain.png";
+    }
+    else if(data.weather[0].main == "Drizzle"){
+        weatherIcon.src = "images/NightRain.png";
+    }
+    else if(data.weather[0].main == "Snow"){
+        weatherIcon.src = "images/NightSnow.png";
+    }
+    else if(data.weather[0].main == "Thunderstorm"){
+        weatherIcon.src = "images/NightStorm.png";
+    }
+    else{
+        weatherIcon.src = "images/NightMoon.png";
+    }
+}
+else{
+    if(data.weather[0].main == "Clouds"){
+        // weatherIcon.src = data.weather[0].icon;
+        weatherIcon.src = "images/DayClouds.png";
+    }
+    else if(data.weather[0].main == "Clear"){
+        weatherIcon.src = "images/DaySun.png";
+    }
+    else if(data.weather[0].main == "Rain"){
+        weatherIcon.src = "images/DayRain.png";
+    }
+    else if(data.weather[0].main == "Drizzle"){
+        weatherIcon.src = "images/DayRain.png";
+    }
+    else if(data.weather[0].main == "Snow"){
+        weatherIcon.src = "images/DaySnow.png";
+    }
+    else if(data.weather[0].main == "Thunderstorm"){
+        weatherIcon.src = "images/DayStorm.png";
+    }
+    else{
+        weatherIcon.src = "images/DaySun.png";
+    }
+}
     
         document.querySelector(".weather").style.display="block";
         document.querySelector(".error").style.display="none";
