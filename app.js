@@ -57,7 +57,6 @@ async function checkWeather(city){
 
         console.log(data);
 
-        // console.log("The current time is"+isDay)
     
         document.querySelector(".city").innerHTML = data.name;
         document.querySelector(".temp").innerHTML =Math.round(data.main.temp) + " °C";
@@ -65,11 +64,10 @@ async function checkWeather(city){
         document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
     
     
-        const currentTime = data.dt; // Current time (UNIX timestamp)
-        const sunrise = data.sys.sunrise; // Sunrise time (UNIX timestamp)
-        const sunset = data.sys.sunset; // Sunset time (UNIX timestamp)
-
-        // Determine if it's day or night
+        const currentTime = data.dt; 
+        const sunrise = data.sys.sunrise; 
+        const sunset = data.sys.sunset; 
+        
         const isDay = currentTime >= sunrise && currentTime <= sunset;
 
     
